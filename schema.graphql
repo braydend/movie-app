@@ -1,0 +1,110 @@
+directive @embedded on OBJECT
+directive @collection(name: String!) on OBJECT
+directive @index(name: String!) on FIELD_DEFINITION
+directive @resolver(
+  name: String
+  paginated: Boolean! = false
+) on FIELD_DEFINITION
+directive @relation(name: String) on FIELD_DEFINITION
+directive @unique(index: String) on FIELD_DEFINITION
+scalar Date
+
+# The `Long` scalar type represents non-fractional signed whole numeric values.
+# Long can represent values between -(2^63) and 2^63 - 1.
+scalar Long
+
+type Movie {
+  # The document's ID.
+  _id: ID!
+  # The document's timestamp.
+  _ts: Long!
+  title: String!
+  reviews: [Review!]!
+}
+
+# 'Movie' input values
+input MovieInput {
+  title: String!
+  reviews: [ID!]!
+}
+
+type Mutation {
+  # Update an existing document in the collection of 'Movie'
+  updateMovie(
+    # The 'Movie' document's ID
+    id: ID!
+    # 'Movie' input values
+    data: MovieInput!
+  ): Movie
+  # Update an existing document in the collection of 'Review'
+  updateReview(
+    # The 'Review' document's ID
+    id: ID!
+    # 'Review' input values
+    data: ReviewInput!
+  ): Review
+  # Delete an existing document in the collection of 'Review'
+  deleteReview(
+    # The 'Review' document's ID
+    id: ID!
+  ): Review
+  # Create a new document in the collection of 'Review'
+  createReview(
+    # 'Review' input values
+    data: ReviewInput!
+  ): Review!
+  # Delete an existing document in the collection of 'Movie'
+  deleteMovie(
+    # The 'Movie' document's ID
+    id: ID!
+  ): Movie
+  # Create a new document in the collection of 'Movie'
+  createMovie(
+    # 'Movie' input values
+    data: MovieInput!
+  ): Movie!
+}
+
+type Query {
+  # Find a document from the collection of 'Review' by its id.
+  findReviewByID(
+    # The 'Review' document's ID
+    id: ID!
+  ): Review
+  # Find a document from the collection of 'Movie' by its id.
+  findMovieByID(
+    # The 'Movie' document's ID
+    id: ID!
+  ): Movie
+  findAllMovies: [Movie!]!
+}
+
+type Review {
+  # The document's ID.
+  _id: ID!
+  movie: Movie!
+  rating: Int!
+  message: String
+  reviewer: String!
+  # The document's timestamp.
+  _ts: Long!
+}
+
+# 'Review' input values
+input ReviewInput {
+  movie: ReviewMovieRelation
+  reviewer: String!
+  rating: Int!
+  message: String
+}
+
+# Allow manipulating the relationship between the types 'Review' and 'Movie' using the field 'Review.movie'.
+input ReviewMovieRelation {
+  # Create a document of type 'Movie' and associate it with the current document.
+  create: MovieInput
+  # Connect a document of type 'Movie' with the current document using its ID.
+  connect: ID
+}
+
+scalar Time
+

@@ -1,0 +1,26 @@
+type Movie {
+    title: String!
+    reviews: [Review!]!
+}
+
+type Review {
+    movie: Movie!
+    reviewer: String!
+    rating: Int!
+    message: String
+}
+
+type Query {
+    findAllMovies: [Movie!]!
+}
+
+input AddReviewForMovieInput {
+    rating: Int!
+    message: String
+    reviewer: String!
+    movieId: ID!
+}
+
+type Mutation {
+    addReviewForMovie(input: AddReviewForMovieInput): Review! @resolver(name: "add_review_for_movie")
+}
