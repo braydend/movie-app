@@ -1,13 +1,16 @@
-import React from 'react';
-import { Movie } from '../../types';
+import React, { useState } from 'react';
+import { Movie, Scalars } from '../../types';
 import ReactStars from 'react-stars';
 import styled from 'styled-components';
+import NewReviewModal from './NewReviewModal';
 
 type ListItemProps = {
     movie: Movie;
 };
 
 const ListItem: React.FC<ListItemProps> = ({ movie }) => {
+    const [newRating, setNewRating] = useState<number>(0);
+
     const Container = styled.li`
         list-style-type: none;
         background-color: #00f5d4;
@@ -34,7 +37,13 @@ const ListItem: React.FC<ListItemProps> = ({ movie }) => {
 
     const isReviewed = movie.reviews.length < 0;
 
-    const handleRating = console.log;
+    const handleRating = (rating: number) => {
+        setNewRating(rating);
+    };
+
+    const handleModalClose = () => {
+        setNewRating(0);
+    };
 
     return (
         <Container>
@@ -53,6 +62,8 @@ const ListItem: React.FC<ListItemProps> = ({ movie }) => {
                     <ReactStars count={5} onChange={handleRating} half={false} />
                 </div>
             )}
+            {/* This isn't ideal. This will render one modal per list item. Prefer this in the parent list */}
+            <NewReviewModal isOpen={!!newRating} movie_id={movie._id} rating={newRating} onClose={handleModalClose} />
         </Container>
     );
 };
