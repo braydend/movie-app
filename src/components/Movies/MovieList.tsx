@@ -1,49 +1,76 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Searchbar from '../Searchbar';
+import React from 'react';
 import { Movie } from '../../types';
-import { containsSubstring } from '../../utils/StringUtils';
-import MovieCard from './MovieCard';
+import ReactStars from 'react-stars';
+import styled from 'styled-components';
+
+type ListItemProps = {
+    movie: Movie;
+};
+
+const ListItem: React.FC<ListItemProps> = ({ movie }) => {
+    const Container = styled.li`
+        list-style-type: none;
+        background-color: #00f5d4;
+        padding: 0.5rem;
+        border-radius: 5px;
+        border: 4px solid #00BBF9;
+        margin-bottom: 0.25rem;
+        display: flex;
+        justify-content: space-between;
+
+        &:last-of-type{
+            margin-bottom: 0;
+        }
+    `;
+
+    const Reviews = styled.div`
+        flex-basis: 50%;
+    `;
+
+    const ratingSum = movie.reviews.reduce((acc, { rating: cur }) => {
+        return acc + cur;
+    }, 0);
+    const averageRating = ratingSum / movie.reviews.length;
+
+    const isReviewed = movie.reviews.length < 0;
+
+    const handleRating = console.log;
+
+    return (
+        <Container>
+            <h1>{movie.title}</h1>
+            {isReviewed ? (
+                <Reviews>
+                    <ReactStars count={5} value={averageRating} />
+                    <small>
+                        Reviewed by:
+                        {movie.reviews.map(({ reviewer }) => `- ${reviewer}`)}
+                    </small>
+                </Reviews>
+            ) : (
+                <div>
+                    <small>This movie hasn't been reviewed yet, be the first one!</small>
+                    <ReactStars count={5} onChange={handleRating} half={false} />
+                </div>
+            )}
+        </Container>
+    );
+};
 
 type Props = {
     movies: Movie[];
 };
 
-const MovieContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-`;
-
 const MovieList: React.FC<Props> = ({ movies }) => {
-    const [query, setQuery] = useState('');
-
-    const moviesToDisplay = movies.filter((movie) => {
-        console.log(movie);
-        return containsSubstring(query, movie.title)
-    });
-    const noResults = moviesToDisplay.length === 0;
-
-    const handleAddMovie = () => {
-        // movies.push({ id: (movies.length + 1), title: query });
-        setQuery('');
-    };
+    const Container = styled.ul`
+        padding-left: 0;
+        flex-grow: 1;
+    `;
 
     return (
-        <div>
-            <Searchbar query={query} onChange={(newQuery) => setQuery(newQuery)} />
-            <strong>List of movies</strong>
-            <MovieContainer id='movies'>
-                {noResults ? 
-                    <div>
-                        <strong>This movie isn't in the list</strong>
-                        <button onClick={handleAddMovie}>Add movie to list</button>
-                    </div>
-                 :
-                    moviesToDisplay.map((movie) => <MovieCard key={movie._id} movie={movie} />)
-                }
-            </MovieContainer>
-        </div>
+        <Container id="movies">
+            {movies.map(movie => <ListItem key={movie._id} movie={movie} />)}
+        </Container>
     );
 };
 
