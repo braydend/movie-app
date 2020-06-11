@@ -5,16 +5,14 @@ import Searchbar from './Searchbar';
 describe('<Searchbar />', () => {
     test('renders correctly', () => {
         const wrapper = shallow(<Searchbar query='' onChange={() => {}} />);
-        const label = wrapper.find('label');
-        const input = wrapper.find('Input');
 
-        expect(label.length).toBe(1);
-        expect(input.length).toBe(1);
+        expect(wrapper.length).toBe(1);
+        expect(wrapper.text()).toContain('Search');
     });
 
     test('renders query prop in Input', () => {
         const wrapper = shallow(<Searchbar query='foo' onChange={() => {}} />);
-        const input = wrapper.find('Input');
+        const input = wrapper.find('FormControl');
         const expected = 'foo';
 
         expect(input.props().value).toBe(expected);
@@ -23,7 +21,7 @@ describe('<Searchbar />', () => {
     test('onChange callback is fired when query is updated', () => {
         const callback = jest.fn();
         const wrapper = shallow(<Searchbar query={''} onChange={callback} />);
-        const input = wrapper.find('Input');
+        const input = wrapper.find('FormControl');
     
         input.simulate('change', { target: { value: 'first Search'}});
         input.simulate('change', { target: { value: 'second Search'}});

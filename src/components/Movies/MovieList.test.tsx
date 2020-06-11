@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { Movie } from '../../types';
 import MovieList from './MovieList';
 
@@ -12,16 +12,15 @@ const movies: Movie[] = [
 
 describe('<MovieList />', () => {
     test('renders list of movies', () => {
-        const wrapper = shallow(<MovieList movies={movies} />);
-        const movieList = wrapper.find('#movies');
+        const wrapper = mount(<MovieList movies={movies} />);
+        const movieList = wrapper.find('MovieCard');
 
         expect(movieList.children().length).toBe(movies.length);
     });
 
     test('renders message when no movies in list', () => {
         const wrapper = shallow(<MovieList movies={[]} />);
-        const movieList = wrapper.find('#movies');
         
-        expect(movieList.text()).toContain('Add movie');
+        expect(wrapper.text()).toContain('Add movie');
     });
 });
