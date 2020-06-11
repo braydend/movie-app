@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
-import Wrapper, { Variant as WrapperVariants} from './styled-components/Wrapper';
+import { Container } from 'react-bootstrap';
 import ApiProvider from './utils/ApiProvider';
 import Movies from './components/Movies';
 
 function App() {
   return (
     <ApiProvider>
-      <Wrapper variant={WrapperVariants.Yellow}>
+      <Container>
         <Movies />
-      </Wrapper>
+      </Container>
     </ApiProvider>
   );
 }
