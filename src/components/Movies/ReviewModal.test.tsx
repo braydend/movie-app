@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import ReviewModal from './ReviewModal';
 import { Movie } from '../../utils/MovieApiProvider';
 
@@ -20,7 +20,7 @@ describe('<ReviewModal />', () => {
 
     test('renders movie data correctly', () => {
         const wrapper = shallow(<ReviewModal movie={shrek} onClose={() => {}} />);
-        const posterImage = wrapper.find('img');
+        const posterImage = wrapper.find('Image');
 
         expect(wrapper.text()).toContain(shrek.Title);
         expect(posterImage.prop('src')).toBe(shrek.Poster);

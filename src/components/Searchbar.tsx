@@ -14,7 +14,7 @@ const Searchbar = ({ onChange }: SearchbarProps) => {
     };
 
     return (
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-3 mt-3">
             <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1">Search for a movie:</InputGroup.Text>
             </InputGroup.Prepend>
