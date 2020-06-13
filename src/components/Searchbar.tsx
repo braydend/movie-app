@@ -1,18 +1,20 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { FormControl, InputGroup } from 'react-bootstrap';
 
 type SearchbarProps = {
-    query: string;
     onChange: (x: string) => void;
 };
 
-const Searchbar = ({ query, onChange }: SearchbarProps) => {
+const Searchbar = ({ onChange }: SearchbarProps) => {
+    const [query, setQuery] = useState('');
+
     const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+        setQuery(value);
         onChange(value);
     };
 
     return (
-        <InputGroup className="mb-3">
+        <InputGroup className="mb-3 mt-3">
             <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1">Search for a movie:</InputGroup.Text>
             </InputGroup.Prepend>

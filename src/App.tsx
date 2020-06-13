@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css';
 import { Container } from 'react-bootstrap';
-import ApiProvider from './utils/ApiProvider';
+import GraphQLApiProvider from './utils/GraphQLApiProvider';
 import Movies from './components/Movies';
 
 function App() {
   return (
-    <ApiProvider>
+    <GraphQLApiProvider>
       <Container>
         <Movies />
       </Container>
-    </ApiProvider>
+    </GraphQLApiProvider>
   );
 }
 
