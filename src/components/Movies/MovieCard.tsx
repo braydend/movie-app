@@ -2,14 +2,15 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Movie, getMovieByImdbId } from '../../utils/MovieApiProvider';
 
-type MovieCardProps = {
+type Props = {
     movie: Movie;
+    onSelect: () => void;
 };
 
-const MovieCard = ({ movie: { Title, imdbID, Poster } }: MovieCardProps) => {
+const MovieCard: React.FC<Props> = ({ movie: { Title, Poster }, onSelect }) => {
     const hasPoster = Poster !== 'N/A';
     const handleClick = () => {
-        getMovieByImdbId(imdbID, console.log, console.error);
+        onSelect();
     };
 
     return (

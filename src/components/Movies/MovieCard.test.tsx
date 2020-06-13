@@ -13,8 +13,18 @@ const shrek: Movie = {
 
 describe('<MovieCard />', () => {
     test('renders correctly', () => {
-        const wrapper = shallow(<MovieCard movie={shrek} />);
+        const wrapper = shallow(<MovieCard movie={shrek} onSelect={() => {}} />);
 
         expect(wrapper.text()).toContain('Shrek');
     });
+
+    test('onSelect is called', () => {
+        const mockCallback = jest.fn();
+        const wrapper = shallow(<MovieCard movie={shrek} onSelect={mockCallback} />);
+        const button = wrapper.find('button');
+        
+        expect(mockCallback).toHaveBeenCalledTimes(0);
+        button.simulate('click');
+        expect(mockCallback).toHaveBeenCalledTimes(1);
+    })
 });
