@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
-import { Movie, getMovieByImdbId } from '../../utils/MovieApiProvider';
+import { Movie } from '../../utils/MovieApiProvider';
 
 type Props = {
     movie: Movie;
