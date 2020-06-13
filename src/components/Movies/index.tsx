@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Searchbar from '../Searchbar';
+import { Movie, searchByTitle } from '../../utils/MovieApiProvider';
+import debounce from 'lodash.debounce';
 import MovieList from './MovieList';
-import { GET_ALL_MOVIES } from './queries';
-import { useQuery } from '@apollo/react-hooks';
-import { Card } from 'react-bootstrap';
 
-const Movies: React.FC = () => {
-    const { data, loading, error } = useQuery(GET_ALL_MOVIES); 
+const Movies = () => {
+    const [movies, setMovies] = useState<Movie[]>([])
 
-    if (loading) return <Card><Card.Body>Loading...</Card.Body></Card>
-    if (error) return <Card bg='danger'><Card.Body>Something went wrong!</Card.Body></Card>
+    const handleSearch = debounce((query: string) => {
+        searchByTitle(query, setMovies, console.error);
+    }, 300);
 
-    const { findAllMovies: { data: movies } } = data;
-    return <MovieList movies={movies} />;
-
+    return (
+        <>
+            <Searchbar onChange={handleSearch} />
+            <MovieList movies={movies} />
+        </>
+    );
 };
 
 export default Movies;
