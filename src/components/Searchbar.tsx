@@ -1,13 +1,15 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { FormControl, InputGroup } from 'react-bootstrap';
 
 type SearchbarProps = {
-    query: string;
     onChange: (x: string) => void;
 };
 
-const Searchbar = ({ query, onChange }: SearchbarProps) => {
+const Searchbar = ({ onChange }: SearchbarProps) => {
+    const [query, setQuery] = useState('');
+
     const handleChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+        setQuery(value);
         onChange(value);
     };
 
