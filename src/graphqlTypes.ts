@@ -112,6 +112,19 @@ export type FindReviewsByMovieIdQuery = (
   ) }
 );
 
+export type CreateReviewMutationVariables = Exact<{
+  input: ReviewInput;
+}>;
+
+
+export type CreateReviewMutation = (
+  { __typename?: 'Mutation' }
+  & { createReview: (
+    { __typename?: 'Review' }
+    & Pick<Review, 'reviewer'>
+  ) }
+);
+
 
 export const FindReviewsByMovieIdDocument = gql`
     query findReviewsByMovieId($id: String!) {
@@ -149,3 +162,35 @@ export function useFindReviewsByMovieIdLazyQuery(baseOptions?: ApolloReactHooks.
 export type FindReviewsByMovieIdQueryHookResult = ReturnType<typeof useFindReviewsByMovieIdQuery>;
 export type FindReviewsByMovieIdLazyQueryHookResult = ReturnType<typeof useFindReviewsByMovieIdLazyQuery>;
 export type FindReviewsByMovieIdQueryResult = ApolloReactCommon.QueryResult<FindReviewsByMovieIdQuery, FindReviewsByMovieIdQueryVariables>;
+export const CreateReviewDocument = gql`
+    mutation createReview($input: ReviewInput!) {
+  createReview(data: $input) {
+    reviewer
+  }
+}
+    `;
+export type CreateReviewMutationFn = ApolloReactCommon.MutationFunction<CreateReviewMutation, CreateReviewMutationVariables>;
+
+/**
+ * __useCreateReviewMutation__
+ *
+ * To run a mutation, you first call `useCreateReviewMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateReviewMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createReviewMutation, { data, loading, error }] = useCreateReviewMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateReviewMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateReviewMutation, CreateReviewMutationVariables>) {
+        return ApolloReactHooks.useMutation<CreateReviewMutation, CreateReviewMutationVariables>(CreateReviewDocument, baseOptions);
+      }
+export type CreateReviewMutationHookResult = ReturnType<typeof useCreateReviewMutation>;
+export type CreateReviewMutationResult = ApolloReactCommon.MutationResult<CreateReviewMutation>;
+export type CreateReviewMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateReviewMutation, CreateReviewMutationVariables>;

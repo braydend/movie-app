@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ReviewModal from './ReviewModal';
+import ReviewModal from '.';
 import { Movie } from '../../utils/MovieApiProvider';
 
 describe('<ReviewModal />', () => {

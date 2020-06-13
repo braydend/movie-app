@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import MovieCard from './MovieCard';
 import { CardColumns } from 'react-bootstrap';
 import { Movie } from '../../utils/MovieApiProvider';
-import ReviewModal from './ReviewModal';
+import ReviewModal from '../ReviewModal';
 
 type Props = {
     movies: Movie[];

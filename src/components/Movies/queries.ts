@@ -8,3 +8,11 @@ query findReviewsByMovieId ($id: String!) {
     }
   }
 `;
+
+export const CREATE_REVIEW = gql`
+  mutation createReview ($input: ReviewInput!){
+    createReview(data: $input){
+      reviewer
+    }
+  }
+`;
