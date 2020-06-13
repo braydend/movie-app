@@ -1,7 +1,7 @@
 import React, { createContext, useState } from 'react';
 import { useLocalStorage } from '../useLocalStorage';
 
-type User = {
+export type User = {
     name: string;
 };
 
