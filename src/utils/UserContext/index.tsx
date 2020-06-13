@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import { useLocalStorage } from '../useLocalStorage';
 
 type User = {
     name: string;
@@ -16,11 +17,17 @@ type Props = {
 };
 
 const UserContextProvider: React.FC<Props> = ({ children, user: initialUser }) => {
-    const [user, setUser] = useState<User | undefined>(initialUser);
+    const [userLS, setUserLS] = useLocalStorage<User | undefined>('user', undefined);
+    const [user, setUser] = useState<User | undefined>(userLS ?? initialUser);
     
+    const updateUser = (user?: User) => {
+        setUser(user);
+        setUserLS(user);
+    };
+
     const contextValue: UserContext = {
         user,
-        setUser: (user?: User) => { setUser(user) },
+        setUser: updateUser,
     };
 
     return (
