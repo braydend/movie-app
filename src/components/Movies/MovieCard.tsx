@@ -1,22 +1,25 @@
 import React from 'react';
-import ReactStars from 'react-stars';
-import { Movie } from '../../types';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
+import { Movie, getMovieByImdbId } from '../../utils/MovieApiProvider';
 
 type MovieCardProps = {
     movie: Movie;
 };
 
-const MovieCard = ({ movie: { title, reviews } }: MovieCardProps) => {
-    const averageRating = (reviews.reduce((acc, { rating }) => acc + rating, 0) / reviews.length);
+const MovieCard = ({ movie: { Title, imdbID, Poster } }: MovieCardProps) => {
+    const hasPoster = Poster !== 'N/A';
+    const handleClick = () => {
+        getMovieByImdbId(imdbID, console.log, console.error);
+    };
 
     return (
         <Card>
             <Card.Header>
-                <ReactStars edit={false} count={5} size={25} value={averageRating} />
+                {hasPoster ? <img src={Poster} alt={`${Title} poster`} /> : "Couldn't find a poster for this movie"}
             </Card.Header>
             <Card.Body>
-                <h2>{title}</h2>
+                <h2>{Title}</h2>
+                <Button onClick={handleClick}>Reviews</Button>
             </Card.Body>
         </Card>
     );
