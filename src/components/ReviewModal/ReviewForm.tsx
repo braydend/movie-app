@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { InputGroup, FormControl, Button } from 'react-bootstrap';
 import { useCreateReviewMutation } from '../../graphqlTypes';
 import ReactStars from 'react-stars';
+import { UserContext } from '../../utils/UserContext';
 
 type Props = {
     id: string;
@@ -9,8 +10,9 @@ type Props = {
 };
 
 const ReviewForm: React.FC<Props> = ({ id, onAfterReview }) => {
+    const { user, setUser } = useContext(UserContext);
     const [rating, setRating] = useState<number>(0);
-    const [reviewer, setReviewer] = useState<string>('');
+    const [reviewer, setReviewer] = useState<string>(user?.name || '');
     const [addReviewForMovieMutation, { loading, error }] = useCreateReviewMutation({ refetchQueries: ['findReviewsByMovieId'] });
 
     const isReviewerEmpty = reviewer.length === 0;
@@ -18,6 +20,7 @@ const ReviewForm: React.FC<Props> = ({ id, onAfterReview }) => {
 
     const handleReview = () => {
         addReviewForMovieMutation({ variables: { input: { imdbID: id, rating, reviewer } } });
+        setUser({ name: reviewer });
         if (!loading){
             if (error) {
                 console.error(error)
