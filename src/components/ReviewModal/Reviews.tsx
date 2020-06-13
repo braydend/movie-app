@@ -1,14 +1,15 @@
 import React from 'react';
 import { useFindReviewsByMovieIdQuery, Review } from '../../graphqlTypes';
+import { Movie } from '../../utils/MovieApiProvider';
 
 type Props = {
-    id: string,
+    movie: Movie,
 };
 
-const Reviews: React.FC<Props> = ({ id }) => {
+const Reviews: React.FC<Props> = ({ movie: { imdbID, Title } }) => {
     const { data, loading, error } = useFindReviewsByMovieIdQuery({
         variables: {
-            id: id,
+            id: imdbID,
         },
     });
 
@@ -17,9 +18,11 @@ const Reviews: React.FC<Props> = ({ id }) => {
 
     const reviews: Review[] = data?.findReviewsByImdbId.data as Review[];
 
+    const isReviewed = reviews.length > 0;
+
     return (
         <div>
-            <h3>Reviewed By:</h3>
+            <h3>{isReviewed ? 'Reviewed By:' : `${Title} hasn't been rated yet, Be the first person!`}</h3>
             <ul>
                 {reviews.map(({ reviewer, rating }) => <li key={`${reviewer}-${rating}`}>{reviewer} - {rating}/5</li>)}
             </ul>

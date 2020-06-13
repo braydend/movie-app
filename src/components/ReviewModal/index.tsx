@@ -9,17 +9,21 @@ type Props = {
     onClose: () => void;
 };
 
-const ReviewModal: React.FC<Props> = ({ movie: { imdbID, Title, Poster }, onClose }) => (
-    <Modal show={true} onHide={onClose} >
-        <Modal.Header>
-            Review {Title}
-        </Modal.Header>
-        <Modal.Body>
-            <ReviewForm id={imdbID} onAfterReview={onClose} />
-            <Reviews id={imdbID} />
-            <Image src={Poster} alt={`${Title} poster`} />
-        </Modal.Body>
-    </Modal>
-);
+const ReviewModal: React.FC<Props> = ({ movie, onClose }) => {
+    const { imdbID, Title, Poster } = movie;
+
+    return (
+        <Modal show={true} onHide={onClose} >
+            <Modal.Header>
+                Review {Title}
+            </Modal.Header>
+            <Modal.Body>
+                <ReviewForm id={imdbID} onAfterReview={onClose} />
+                <Reviews movie={movie} />
+                <Image src={Poster} alt={`${Title} poster`} />
+            </Modal.Body>
+        </Modal>
+    );
+};
 
 export default ReviewModal;
