@@ -21,7 +21,7 @@ describe('<MovieCard />', () => {
     test('onSelect is called', () => {
         const mockCallback = jest.fn();
         const wrapper = shallow(<MovieCard movie={shrek} onSelect={mockCallback} />);
-        const button = wrapper.find('button');
+        const button = wrapper.find('Button');
         
         expect(mockCallback).toHaveBeenCalledTimes(0);
         button.simulate('click');
