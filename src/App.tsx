@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Movies from "./components/Movies";
 import UserContext from "./utils/UserContext";
@@ -14,11 +15,23 @@ function App() {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <ApiProvider>
-        <Layout>
-          {!user ? <></> : <ReviewList userId={user.uid} />}
-          <Movies />
-        </Layout>
-        <ReactQueryDevtools initialIsOpen={false} />
+        <BrowserRouter>
+          <Layout>
+            {!user ? (
+              <></>
+            ) : (
+              <Switch>
+                <Route path="/reviews">
+                  <ReviewList userId={user.uid} />
+                </Route>
+                <Route path="/">
+                  <Movies />
+                </Route>
+              </Switch>
+            )}
+          </Layout>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </BrowserRouter>
       </ApiProvider>
     </UserContext.Provider>
   );
