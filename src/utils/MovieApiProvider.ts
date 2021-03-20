@@ -14,6 +14,8 @@ export const searchByTitle = async (query: string, onResolve: (movies: Movie[]) 
     await(await fetch(`${getApiEndpoint()}&s=${query}`)).json().then(data => onResolve(data.Search || [])).catch(onReject);
 };
 
+export const createUrlFromId = (id: string) => `${getApiEndpoint()}&i=${id}`; 
+
 export const getMovieByImdbId = async (id: string, onResolve: (movie: Movie) => void, onReject: (x: any) => void) => {
-    await(await fetch(`${getApiEndpoint()}&i=${id}`)).json().then(data => onResolve(data)).catch(onReject);
+    await(await fetch(createUrlFromId(id))).json().then(data => onResolve(data)).catch(onReject);
 };
