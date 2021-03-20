@@ -23,6 +23,26 @@ type CreateReviewInput = {
   user: firebase.User;
 };
 
+const transformCollectionToReviews = (
+  collection: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
+): Review[] => {
+  return collection.docs.map(transformDocumentToReview);
+};
+
+const transformDocumentToReview = (
+  document: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>
+): Review => {
+  const data = document.data();
+
+  return {
+    score: data.score,
+    message: data.message,
+    created: data.created,
+    movie: data.movie,
+    postedBy: data.postedBy,
+  };
+};
+
 export const useCreateReview = () => {
   const id = firebase.db.collection("reviews").doc().id;
 
@@ -62,18 +82,16 @@ export const useGetReviewsForMovie = (id: string) => {
       .collectionGroup("reviews")
       .where("movie.IMDBId", "==", id)
       .get()
-      .then(({ docs }) =>
-        docs.map((_) => {
-          const data = _.data();
+      .then(transformCollectionToReviews)
+  );
+};
 
-          return {
-            score: data.score,
-            message: data.message,
-            created: data.created,
-            movie: data.movie,
-            postedBy: data.postedBy,
-          };
-        })
-      )
+export const useGetReviewsByUser = (userId: string) => {
+  return useQuery(`user-${userId}`, () =>
+    firebase.db
+      .collectionGroup("reviews")
+      .where("postedBy.id", "==", userId)
+      .get()
+      .then(transformCollectionToReviews)
   );
 };
