@@ -34,7 +34,7 @@ const ReviewForm: React.FC<Props> = ({ id, Title, onAfterReview }) => {
     const { score, message } = values;
 
     if (!user) throw Error("User is not defined");
-    mutate({ score, message, title: Title, IMDBId: id, user });
+    mutate({ score, message, title: Title, imdbID: id, user });
     onAfterReview();
     setBusy(false);
   };

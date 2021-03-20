@@ -19,7 +19,7 @@ type CreateReviewInput = {
   score: number;
   message: string;
   title: string;
-  IMDBId: string;
+  imdbID: string;
   user: firebase.User;
 };
 
@@ -50,7 +50,7 @@ export const useCreateReview = () => {
     score,
     message,
     user,
-    IMDBId,
+    imdbID,
     title,
   }: CreateReviewInput) => {
     if (!user.displayName) throw Error("User has no displayName");
@@ -60,7 +60,7 @@ export const useCreateReview = () => {
       message,
       movie: {
         Title: title,
-        IMDBId,
+        imdbID,
       },
       postedBy: {
         id: user.uid,
@@ -80,7 +80,7 @@ export const useGetReviewsForMovie = (id: string) => {
   return useQuery<Review[]>(`movie-${id}-reviews`, () =>
     firebase.db
       .collectionGroup("reviews")
-      .where("movie.IMDBId", "==", id)
+      .where("movie.imdbID", "==", id)
       .get()
       .then(transformCollectionToReviews)
   );

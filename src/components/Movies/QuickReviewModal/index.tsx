@@ -37,7 +37,7 @@ const QuickReviewForm: React.FC<{ movie: Movie; onClose: () => void }> = ({
       score: rating,
       message: "QuickReview",
       title: Title,
-      IMDBId: imdbID,
+      imdbID: imdbID,
       user,
     });
     onClose();
