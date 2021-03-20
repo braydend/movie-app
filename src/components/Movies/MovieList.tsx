@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import MovieCard from "./MovieCard";
 import { CardColumns } from "react-bootstrap";
-import ReviewModal from "../ReviewModal";
+import ReviewModal from "../Reviews/ReviewModal";
 import QuickReviewModal from "./QuickReviewModal";
 import { Movie } from "./hooks";
 
