@@ -7,7 +7,7 @@ import { useAuth } from "./hooks/useAuth";
 import Layout from "./components/Layout";
 import ApiProvider from "./utils/ApiProvider";
 import { ReactQueryDevtools } from "react-query/devtools";
-import ReviewList from "./components/Reviews/ReviewList";
+import ReviewPage from "./components/Reviews/ReviewPage";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -22,7 +22,7 @@ function App() {
             ) : (
               <Switch>
                 <Route path="/reviews">
-                  <ReviewList userId={user.uid} />
+                  <ReviewPage userId={user.uid} />
                 </Route>
                 <Route path="/">
                   <Movies />

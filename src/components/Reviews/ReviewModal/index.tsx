@@ -1,8 +1,9 @@
 import React from "react";
 import { Modal, Image, Alert } from "react-bootstrap";
-import Reviews from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import { Movie } from "../../Movies/hooks";
+import ReviewList from "../ReviewList";
+import { useGetReviewsForMovie } from "../hooks";
 
 type Props = {
   movie?: Movie;
@@ -16,12 +17,17 @@ const MovieForm: React.FC<{ movie: Movie; onAfterReview: () => void }> = ({
   onAfterReview,
 }) => {
   const { imdbID, Title, Poster } = movie;
+  const { data, isLoading } = useGetReviewsForMovie(imdbID);
+
+  if (isLoading) return <>loading...</>;
+  if (!data) throw Error("Error fetching reviews for movie");
+
   return (
     <>
       <Modal.Header>Review {Title}</Modal.Header>
       <Modal.Body>
         <ReviewForm id={imdbID} Title={Title} onAfterReview={onAfterReview} />
-        <Reviews movie={movie} />
+        <ReviewList reviews={data} />
         <Image src={Poster} alt={`${Title} Poster`} />
       </Modal.Body>
     </>
