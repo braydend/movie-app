@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
-import { Container } from 'react-bootstrap';
-import GraphQLApiProvider from './utils/GraphQLApiProvider';
 import Movies from './components/Movies';
-import UserContextProvider from './utils/UserContext';
+import UserContext from './utils/UserContext';
+import { useAuth } from './hooks/useAuth';
+import Layout from './components/Layout';
 
 function App() {
+  const [user, setUser] = useAuth();
+
   return (
-    <GraphQLApiProvider>
-      <UserContextProvider>
-        <Container>
-          <Movies />
-        </Container>
-      </UserContextProvider>
-    </GraphQLApiProvider>
+    <UserContext.Provider value={{ user, setUser }}>
+      <Layout>
+        <Movies />
+      </Layout>
+    </UserContext.Provider>
   );
 }
 

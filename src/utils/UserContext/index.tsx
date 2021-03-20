@@ -1,40 +1,15 @@
-import React, { createContext, useState } from 'react';
-import { useLocalStorage } from '../useLocalStorage';
+import { createContext } from "react";
 
-export type User = {
-    name: string;
+type ContextType = {
+    user: firebase.User | undefined;
+    setUser: React.Dispatch<React.SetStateAction<firebase.User | undefined>>;
 };
 
-interface UserContext {
-    user?: User;
-    setUser: (user?: User) => void;
+const initialValue: ContextType = {
+    user: undefined,
+    setUser: () => {},
 };
 
-export const UserContext = createContext<UserContext>({user: undefined, setUser: () => {}});
+const UserContext = createContext<ContextType>(initialValue);
 
-type Props = {
-    user?: User;
-};
-
-const UserContextProvider: React.FC<Props> = ({ children, user: initialUser }) => {
-    const [userLS, setUserLS] = useLocalStorage<User | undefined>('user', undefined);
-    const [user, setUser] = useState<User | undefined>(userLS ?? initialUser);
-    
-    const updateUser = (user?: User) => {
-        setUser(user);
-        setUserLS(user);
-    };
-
-    const contextValue: UserContext = {
-        user,
-        setUser: updateUser,
-    };
-
-    return (
-        <UserContext.Provider value={contextValue}>
-            {children}
-        </UserContext.Provider>
-    );
-};
-
-export default UserContextProvider;
+export default UserContext;
