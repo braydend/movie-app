@@ -6,6 +6,7 @@ import { useAuth } from "./hooks/useAuth";
 import Layout from "./components/Layout";
 import ApiProvider from "./utils/ApiProvider";
 import { ReactQueryDevtools } from "react-query/devtools";
+import ReviewList from "./components/Reviews/ReviewList";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -14,6 +15,7 @@ function App() {
     <UserContext.Provider value={{ user, setUser }}>
       <ApiProvider>
         <Layout>
+          {!user ? <></> : <ReviewList userId={user.uid} />}
           <Movies />
         </Layout>
         <ReactQueryDevtools initialIsOpen={false} />

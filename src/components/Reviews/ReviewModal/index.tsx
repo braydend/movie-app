@@ -1,6 +1,6 @@
 import React from "react";
 import { Modal, Image, Alert } from "react-bootstrap";
-import Reviews from "./Reviews";
+import Reviews from "./ReviewList";
 import ReviewForm from "./ReviewForm";
 import { Movie } from "../../Movies/hooks";
 

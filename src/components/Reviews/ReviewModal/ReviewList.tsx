@@ -6,7 +6,7 @@ type Props = {
   movie: Movie;
 };
 
-const Reviews: React.FC<Props> = ({ movie: { imdbID, Title } }) => {
+const ReviewList: React.FC<Props> = ({ movie: { imdbID, Title } }) => {
   const { data: reviews, isLoading } = useGetReviewsForMovie(imdbID);
 
   if (isLoading) return <h1>Loading</h1>;
@@ -33,4 +33,4 @@ const Reviews: React.FC<Props> = ({ movie: { imdbID, Title } }) => {
   );
 };
 
-export default Reviews;
+export default ReviewList;
