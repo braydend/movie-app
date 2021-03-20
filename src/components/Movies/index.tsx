@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import Searchbar from '../Searchbar';
-import { Movie, searchByTitle } from '../../utils/MovieApiProvider';
-import debounce from 'lodash.debounce';
-import MovieList from './MovieList';
+import React, { useState } from "react";
+import Searchbar from "../Searchbar";
+import debounce from "lodash.debounce";
+import MovieList from "./MovieList";
+import { useSearchMoviesByName } from "./hooks";
 
 const Movies = () => {
-    const [movies, setMovies] = useState<Movie[]>([])
+  const [query, setQuery] = useState<string>("");
 
-    const handleSearch = debounce((query: string) => {
-        searchByTitle(query, setMovies, console.error);
-    }, 300);
+  const { isLoading, data } = useSearchMoviesByName(query);
 
-    return (
-        <>
-            <Searchbar onChange={handleSearch} />
-            <MovieList movies={movies} />
-        </>
-    );
+  const handleSearch = debounce((q: string) => {
+    setQuery(q);
+  }, 1000);
+
+  return (
+    <>
+      <Searchbar onChange={handleSearch} value={query} />
+      {isLoading ? <>loading...</> : <MovieList movies={data.Search ?? []} />}
+    </>
+  );
 };
 
 export default Movies;
