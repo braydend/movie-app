@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Image, Alert } from "react-bootstrap";
 import Reviews from "./Reviews";
 import ReviewForm from "./ReviewForm";
-import { Movie } from "../Movies/hooks";
+import { Movie } from "../../Movies/hooks";
 
 type Props = {
   movie?: Movie;

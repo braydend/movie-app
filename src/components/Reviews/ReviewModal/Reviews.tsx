@@ -1,6 +1,6 @@
 import React from "react";
-import { Movie } from "../Movies/hooks";
-import { useGetReviewsForMovie } from "./hooks";
+import { Movie } from "../../Movies/hooks";
+import { useGetReviewsForMovie } from "../hooks";
 
 type Props = {
   movie: Movie;

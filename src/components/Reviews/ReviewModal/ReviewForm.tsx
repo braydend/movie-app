@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { InputGroup, Button, FormControl, Alert } from "react-bootstrap";
 import ReactStars from "react-stars";
-import UserContext from "../../utils/UserContext";
-import { useFormValidation } from "../../hooks/useFormValidation";
-import validateCreateReview from "../../utils/validators/validateReview";
-import { useCreateReview } from "./hooks";
+import UserContext from "../../../utils/UserContext";
+import { useFormValidation } from "../../../hooks/useFormValidation";
+import validateCreateReview from "../../../utils/validators/validateReview";
+import { useCreateReview } from "../hooks";
 
 type Props = {
   id: string;
