@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { Movie } from '../../utils/MovieApiProvider';
-import { UserContext } from '../../utils/UserContext';
+import UserContext from '../../utils/UserContext';
 import styled from 'styled-components';
 
 type Props = {
@@ -35,7 +35,7 @@ const MovieCard: React.FC<Props> = ({ movie: { Title, Poster }, onSelect, onQuic
             <Card.Body>
                 <h2>{Title}</h2>
                 <ButtonContainer>
-                    {user && <Button id="quick-review" title={`Review ${Title} as ${user.name}`} onClick={handleQuickReview}>+</Button>}
+                    {user && <Button id="quick-review" title={`Review ${Title} as ${user?.displayName}`} onClick={handleQuickReview}>+</Button>}
                     <Button id="review-modal" onClick={handleClick}>Reviews</Button>
                 </ButtonContainer>
             </Card.Body>

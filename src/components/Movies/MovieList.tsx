@@ -22,11 +22,6 @@ const MovieList: React.FC<Props> = ({ movies }) => {
         setSelectedMovie(movie);
         setModal(modal);
     };
-
-    const handleModalClose = () => {
-        setSelectedMovie(undefined);
-        setModal(undefined);
-    };
     
     const noResults = movies.length === 0;
 
@@ -46,8 +41,8 @@ const MovieList: React.FC<Props> = ({ movies }) => {
                     />
                 ))}
             </CardColumns>
-            {selectedMovie && modal === Modal.review && <ReviewModal movie={selectedMovie} onClose={handleModalClose} />}
-            {selectedMovie && modal === Modal.quickReview && <QuickReviewModal movie={selectedMovie} onClose={handleModalClose} />}
+            <ReviewModal movie={selectedMovie} onClose={() => setModal(undefined)} onAfterClose={() => setSelectedMovie(undefined)} isOpen={modal === Modal.review} />
+            <QuickReviewModal movie={selectedMovie} onClose={() => setModal(undefined)} onAfterClose={() => setSelectedMovie(undefined)} isOpen={modal === Modal.quickReview} />
         </>
     );
 };
