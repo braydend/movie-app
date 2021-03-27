@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import UserContext from "../../utils/UserContext";
 import styled from "styled-components";
-import { Movie } from "./hooks";
+import { Movie } from "../../types";
+import { useCreateWatchlistItemMutation } from "../Watchlist/hooks";
 
 type Props = {
   movie: Movie;
@@ -16,11 +18,13 @@ const ButtonContainer = styled.div`
 `;
 
 const MovieCard: React.FC<Props> = ({
-  movie: { Title, Poster },
+  movie: { Title, Poster, imdbID },
   onSelect,
   onQuickReview,
 }) => {
   const { user } = useContext(UserContext);
+
+  const { mutate } = useCreateWatchlistItemMutation();
   const hasPoster = Poster !== "N/A";
 
   const handleClick = () => {
@@ -29,6 +33,10 @@ const MovieCard: React.FC<Props> = ({
 
   const handleQuickReview = () => {
     onQuickReview();
+  };
+
+  const handleAddToWatchlist = () => {
+    mutate({ imdbID: imdbID, userId: user?.uid ?? "" });
   };
 
   return (
@@ -41,16 +49,23 @@ const MovieCard: React.FC<Props> = ({
         )}
       </Card.Header>
       <Card.Body>
-        <h2>{Title}</h2>
+        <h2>
+          <Link to={`/movie/${imdbID}`}>{Title}</Link>
+        </h2>
         <ButtonContainer>
           {user && (
-            <Button
-              id="quick-review"
-              title={`Review ${Title} as ${user?.displayName}`}
-              onClick={handleQuickReview}
-            >
-              +
-            </Button>
+            <>
+              <Button
+                id="quick-review"
+                title={`Review ${Title} as ${user?.displayName}`}
+                onClick={handleQuickReview}
+              >
+                +
+              </Button>
+              <Button id="add-to-watchlist" onClick={handleAddToWatchlist}>
+                WL
+              </Button>
+            </>
           )}
           <Button id="review-modal" onClick={handleClick}>
             Reviews

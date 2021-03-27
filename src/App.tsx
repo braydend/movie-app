@@ -8,6 +8,8 @@ import Layout from "./components/Layout";
 import ApiProvider from "./utils/ApiProvider";
 import { ReactQueryDevtools } from "react-query/devtools";
 import ReviewPage from "./components/Reviews/ReviewPage";
+import WatchlistPage from "./components/Watchlist/WatchlistPage";
+import MoviePage from "./components/Movies/MoviePage";
 
 function App() {
   const [user, setUser] = useAuth();
@@ -23,6 +25,12 @@ function App() {
               <Switch>
                 <Route path="/reviews">
                   <ReviewPage userId={user.uid} />
+                </Route>
+                <Route path="/watchlist">
+                  <WatchlistPage userId={user.uid} />
+                </Route>
+                <Route path="/movie/:movieId">
+                  <MoviePage />
                 </Route>
                 <Route path="/">
                   <Movies />

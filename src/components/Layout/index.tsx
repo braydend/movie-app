@@ -34,6 +34,9 @@ const Layout: React.FC = ({ children }) => {
             <Nav.Link>
               <Link to="/reviews">Reviews</Link>
             </Nav.Link>
+            <Nav.Link>
+              <Link to="/watchlist">Watchlist</Link>
+            </Nav.Link>
             <Nav.Item className="ml-auto">
               {user ? (
                 <>

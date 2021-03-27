@@ -4,7 +4,7 @@ import ReactStars from "react-stars";
 import UserContext from "../../../utils/UserContext";
 import styled from "styled-components";
 import { NoMovieSelected } from "../../Reviews/ReviewModal";
-import { Movie } from "../hooks";
+import { Movie } from "../../../types";
 import { useCreateReview } from "../../Reviews/hooks";
 
 type Props = {
@@ -37,7 +37,7 @@ const QuickReviewForm: React.FC<{ movie: Movie; onClose: () => void }> = ({
       score: rating,
       message: "QuickReview",
       title: Title,
-      IMDBId: imdbID,
+      imdbID: imdbID,
       user,
     });
     onClose();

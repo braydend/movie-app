@@ -1,25 +1,12 @@
 import { useMutation, useQuery } from "react-query";
 import firebase from "../../utils/firebase";
-import { Movie } from "../Movies/hooks";
-
-type User = {
-  id: string;
-  name: string;
-};
-
-export type Review = {
-  score: number;
-  created: number;
-  message: string;
-  movie: Pick<Movie, "imdbID" | "Title">;
-  postedBy: User;
-};
+import { Review } from "../../types";
 
 type CreateReviewInput = {
   score: number;
   message: string;
   title: string;
-  IMDBId: string;
+  imdbID: string;
   user: firebase.User;
 };
 
@@ -50,7 +37,7 @@ export const useCreateReview = () => {
     score,
     message,
     user,
-    IMDBId,
+    imdbID,
     title,
   }: CreateReviewInput) => {
     if (!user.displayName) throw Error("User has no displayName");
@@ -60,7 +47,7 @@ export const useCreateReview = () => {
       message,
       movie: {
         Title: title,
-        IMDBId,
+        imdbID,
       },
       postedBy: {
         id: user.uid,
@@ -80,7 +67,7 @@ export const useGetReviewsForMovie = (id: string) => {
   return useQuery<Review[]>(`movie-${id}-reviews`, () =>
     firebase.db
       .collectionGroup("reviews")
-      .where("movie.IMDBId", "==", id)
+      .where("movie.imdbID", "==", id)
       .get()
       .then(transformCollectionToReviews)
   );
