@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Review } from "./hooks";
+import { Review } from "../../types";
 
 type Props = {
   reviews: Review[];

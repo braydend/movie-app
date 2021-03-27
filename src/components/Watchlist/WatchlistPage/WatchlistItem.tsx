@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card } from "react-bootstrap";
 import { useGetMovie } from "../../Movies/hooks";
-import { WatchlistItem as WatchlistItemType } from "../hooks";
+import { WatchlistItem as WatchlistItemType } from "../../../types";
 
 type Props = {
   data: WatchlistItemType;

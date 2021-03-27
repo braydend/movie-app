@@ -1,19 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import firebase from "../../utils/firebase";
-import { Movie } from "../Movies/hooks";
-
-type User = {
-  id: string;
-  name: string;
-};
-
-export type Review = {
-  score: number;
-  created: number;
-  message: string;
-  movie: Pick<Movie, "imdbID" | "Title">;
-  postedBy: User;
-};
+import { Review } from "../../types";
 
 type CreateReviewInput = {
   score: number;

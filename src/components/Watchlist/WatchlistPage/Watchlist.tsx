@@ -1,6 +1,6 @@
 import React from "react";
 import { CardGroup, ListGroup } from "react-bootstrap";
-import { Watchlist as WatchlistType } from "../hooks";
+import { Watchlist as WatchlistType } from "../../../types";
 import WatchlistItem from "./WatchlistItem";
 
 type Props = {

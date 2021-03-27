@@ -3,7 +3,7 @@ import MovieCard from "./MovieCard";
 import { CardColumns } from "react-bootstrap";
 import ReviewModal from "../Reviews/ReviewModal";
 import QuickReviewModal from "./QuickReviewModal";
-import { Movie } from "./hooks";
+import { Movie } from "../../types";
 
 enum Modal {
   review,

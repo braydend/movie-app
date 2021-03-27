@@ -1,9 +1,8 @@
 import { useMutation, useQuery } from "react-query";
+import { Watchlist, WatchlistItem } from "../../types";
 import firebase from "../../utils/firebase";
 
 type WatchlistMutationInput = { userId: string; imdbID: string };
-export type WatchlistItem = { user: string; imdbID: string; created: string };
-export type Watchlist = WatchlistItem[];
 
 const transformCollectionToWatchlists = (
   collection: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Card, Button } from "react-bootstrap";
 import UserContext from "../../utils/UserContext";
 import styled from "styled-components";
-import { Movie } from "./hooks";
+import { Movie } from "../../types";
 import { useCreateWatchlistItemMutation } from "../Watchlist/hooks";
 
 type Props = {

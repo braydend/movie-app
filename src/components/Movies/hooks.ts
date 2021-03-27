@@ -1,12 +1,5 @@
 import { useQuery } from "react-query";
-
-export type Movie = {
-  Poster: string;
-  Title: string;
-  type: "movie" | "series" | "episode";
-  year: string;
-  imdbID: string;
-};
+import { Movie } from "../../types";
 
 const createUrlFromId = (id: string) => `${getApiEndpoint()}&i=${id}`;
 
