@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Card, Button } from "react-bootstrap";
-import UserContext from "../../utils/UserContext";
 import styled from "styled-components";
 import { Movie } from "./hooks";
+import { useAuth } from "../../hooks/useAuth";
 
 type Props = {
   movie: Movie;
@@ -20,7 +20,7 @@ const MovieCard: React.FC<Props> = ({
   onSelect,
   onQuickReview,
 }) => {
-  const { user } = useContext(UserContext);
+  const [user] = useAuth();
   const hasPoster = Poster !== "N/A";
 
   const handleClick = () => {

@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Nav, Navbar, Spinner } from "react-bootstrap";
-import UserContext from "../../utils/UserContext";
 import LoginModal from "../Modal/LoginModal";
 import RegisterModal from "../Modal/RegisterModal";
 import firebase from "../../utils/firebase";
+import { useAuth } from "../../hooks/useAuth";
 
 enum Modal {
   Login,
@@ -12,7 +12,7 @@ enum Modal {
 }
 
 const Layout: React.FC = ({ children }) => {
-  const { user } = useContext(UserContext);
+  const [user] = useAuth();
   const [busy, setBusy] = useState(false);
   const [modal, setModal] = useState<Modal>();
 
