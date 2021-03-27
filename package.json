@@ -36,6 +36,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "cypress": "cypress open",
     "eject": "react-scripts eject",
     "fix": "eslint src/**/** --fix"
   },
@@ -55,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/cypress": "^7.0.4",
+    "cypress": "^6.8.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "jest-enzyme": "^7.1.2"
