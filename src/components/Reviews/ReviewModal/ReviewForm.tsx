@@ -1,7 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { InputGroup, Button, FormControl, Alert } from "react-bootstrap";
 import ReactStars from "react-stars";
-import UserContext from "../../../utils/UserContext";
+import { useAuth } from "../../../hooks/useAuth";
 import { useFormValidation } from "../../../hooks/useFormValidation";
 import validateCreateReview from "../../../utils/validators/validateReview";
 import { useCreateReview } from "../hooks";
@@ -23,7 +23,7 @@ const INITIAL_STATE: FormType = {
 };
 
 const ReviewForm: React.FC<Props> = ({ id, Title, onAfterReview }) => {
-  const { user } = useContext(UserContext);
+  const [user] = useAuth();
   const [error, setError] = useState<string>();
   const [busy, setBusy] = useState(false);
   const { mutate } = useCreateReview();
